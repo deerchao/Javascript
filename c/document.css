@@ -1,0 +1,23 @@
+﻿code {
+    white-space: pre;
+    color: brown;
+}
+
+dt 
+{
+    font-weight: bold;
+    text-align: right;
+    margin-right: 10px;
+    padding-right: 5px;
+    width: 100px;
+    float: left;
+}
+
+dt, dd 
+{
+    line-height: 150%;
+}
+
+a {
+    color:darkorchid
+}

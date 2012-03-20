@@ -1,0 +1,56 @@
+﻿.tags-container
+{
+    background: white;
+    -webkit-border-radius: 3px;
+    border: solid 1px gray;
+    padding: 1px;
+    margin: 0;
+    cursor: text;
+    display: block;
+    display: inline-block;
+}
+
+.tags-container input
+{
+    border: none;
+    background: none;
+    padding: .2em 0;
+}
+
+.tags-container input:focus
+{
+    outline: none;
+}
+
+.tags-container span.tag
+{
+    background: #ccc;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    border-radius: 2px;
+    margin: 0 .4em .4em 0;
+    padding: 0 .2em 0 .4em;
+    display: block;
+    display: inline-block;
+}
+
+.tags-container span a
+{
+    border-radius: 2px;
+    background: #666;
+    padding: 0 .4em;
+    color: #ccc;
+    text-decoration: none;
+    margin-left: .4em;
+    font-family: arail;
+}
+
+.tags-container span a:hover
+{
+    color: white;
+}
+
+.tags-container span a:active
+{
+    color: white;
+}

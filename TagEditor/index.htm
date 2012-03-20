@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Tag Editor</title>
+    <link href="../c/document.css" rel="stylesheet" />
+    <style>
+        .fixed-width {width:200px; background:#ccc;}
+        #tags3 {width:100px;}
+    </style></head>
+<body>
+    <div class="top"><a href="/">Home</a></div>
+    <h1>The Tag Editor (using jQuery &amp; jQuery UI autocomplete)</h1>
+    <p>This is a tag editor jQuery plugin written by <a href="http://deerchao.net">deerchao</a>. It intends to provide a fluent way to input words(tags), as many websites do, like stackoverflow, facebook, delicious and so on. You can easily transform <code>&lt;input type="text" /&gt;</code> into tag editor, and submit the form the way it was supposed to; The tag editor uses a hidden input to store comma seperated tags, which steals the name attribute away from the original input.</p>
+    <p>It shows existing tags which matches user input as suggestions, and also accepts new tags; It uses ajax to get suggestions. Every tag get trimed. Duplicated tags and empty tags are not allowed.</p>
+    <p>The Tag Editor works in FireFox, Chrome, IE6~9. Other browsers not tested.</p>
+
+    <h2>Demo</h2>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css"/>
+    <link rel="stylesheet" href="jquery.tagEditor.css"/>
+
+    <form id="form1">    Demo 1:
+        <input type="text" id="tags1" name="tags1" value="" placeholder="Programming Languages" />
+        <input type="submit" />
+        (input with HTML5 <code>placeholder</code> attribute, maxTags = 5, tagMaxLength = 20)
+    </form>
+    
+    <form id="form2">    Demo 2:
+        <input type="text" id="tags2" name="tags2" value="C++, C#" autofocus="autofocus" />
+        <input type="submit" />
+        (input with HTML5 <code>autofocus</code> attribute, and initial value of <code>"C++, C#"</code>, maxTags = 0, tagMaxLength = 0)
+    </form>
+    
+    <form id="form3">
+        Demo 3:
+        <div class="fixed-width">
+            <input type="text" id="tags3" name="tags3" />
+        </div>
+        <input type="submit" />
+        (input inside a fixed with <code>&lt;div&gt;</code>)
+    </form>
+    
+    <h2>Keyboard</h2>
+    <dl>
+        <dt>Tab</dt>
+        <dd>accept the active suggestion</dd>
+        <dt>Comma/Space</dt>
+        <dd>accept the current input value</dd>
+        <dt>Enter</dt>
+        <dd>accept active suggestion or current input value</dd>
+        <dt>Esc</dt>
+        <dd>hide suggestions</dd>
+        <dt>Backspace</dt>
+        <dd>remove last tag if input is empty</dd>
+        <dt>Up/Down</dt>
+        <dd>move between suggestions</dd>
+    </dl>
+
+    <h2>Usage</h2>
+
+    <code>    &lt;link rel="stylesheet" href="jquery-ui.css" /&gt;
+        <em>&lt;link rel="stylesheet" href="jquery.tagEditor.css" /&gt;</em>
+    
+        &lt;input type="text" name="tags" value="tag1, tag2" /&gt;
+    
+        &lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+        &lt;script src="jquery-ui.min.js"&gt;&lt;/script&gt;
+        <em>&lt;script src="jquery.tagEditor.js"&gt;&lt;/script&gt;</em>
+    
+        &lt;script&gt;
+        $(function() {
+        <em>$('input[name=tags]').tagEditor({ 
+            url: '/Tags', 
+            param: 'q',
+            method: 'get',
+            suggestChars: 1, 
+            suggestDelay: 300, 
+            cache: true, 
+            ignoreCase: true,
+            maxTags: 0,
+            tagMaxLength: 0
+            });</em>
+        });
+        &lt;/script&gt;</code>
+
+    <h2>Options</h2>
+
+    <dl>
+        <dt>url</dt>
+        <dd>The url to get tag suggestions. Default: '/Tags'</dd>
+        <dt>param</dt>
+        <dd>The parameter name of query string for user input value. Default: 'q'</dd>
+        <dt>method</dt>
+        <dd>The HTTP method for the url, 'post' or 'get'. Default: 'get'</dd>
+        <dt>suggestChars</dt>
+        <dd>The minimum number of characters a user has to type before the plugin requests for suggestion list. Default: 1</dd>
+        <dt>suggestDelay</dt>
+        <dd>The delay in milliseconds after a keystroke to request suggestions. Default: 300</dd>
+        <dt>cache</dt>
+        <dd>Whether or not to use cache for suggestions. Default: true</dd>
+        <dt>ignoreCase</dt>
+        <dd>Whether or not to ignore tags' cases. Default: true</dd>
+        <dt>maxTags</dt>
+        <dd>The maximum count of tags allowed, 0 means no limit. Default:0</dd>
+        <dt>tagMaxLength</dt>
+        <dd>The maximum count of charcters allowed in each tag, 0 means no limit. Default: 0</dd>
+    </dl>
+
+    <h2>Styling</h2>
+
+    <p>It's easy to style, the default style doesn't use any image.</p>
+    <p>It wraps the input with a <code>&lt;span class="tags-container" /&gt;</code>, and inserts <code>&lt;span class="tag"&gt;TAGNAME&lt;a href="#"&gt;x&lt;/a&gt;</code> for each tag before the input.</p>
+
+    <h2>Backend</h2>
+    <p>Just return a JSON array for matching suggestions. You can customize how to connect to the backend using url, param, method, cache of options.</p>
+
+    <h2>Download</h2>
+    <ul>
+        <li><a href="jquery.tagEditor.js">jQuery.tagEditor.js</a></li>
+        <li><a href="jquery.tagEditor.css">jQuery.tagEditor.css</a></li>
+    </ul>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script src="jquery.tagEditor.js"></script>
+
+    <script>
+        $(function () {
+            $('input#tags1').tagEditor({ url: '/TagEditor/Tags', param: 'start', method: 'post', suggestChars: 1, suggestDelay: 300, cache: true, ignoreCase: true, maxTags: 5, tagMaxLength: 20 });
+            $('input#tags2').tagEditor({ url: '/TagEditor/Tags', param: 'start', method: 'post', suggestChars: 1, suggestDelay: 300, cache: true, ignoreCase: true, maxTags: 0, tagMaxLength: 0 });
+            $('input#tags3').tagEditor({ url: '/TagEditor/Tags', param: 'start', method: 'post', suggestChars: 1, suggestDelay: 300, cache: true, ignoreCase: true, maxTags: 0, tagMaxLength: 0 });
+
+            $('form').submit(function (e) {
+                e.preventDefault();
+
+                alert('form:' + this.id + '\r\ndata:' + $(this).serialize());
+            });
+        });
+      
+    </script>
+</body>
+</html>
