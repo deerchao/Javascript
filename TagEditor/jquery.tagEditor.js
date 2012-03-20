@@ -162,6 +162,7 @@
                 if (i < 0)
                     return;
                 allTags.splice(i, 1);
+				updateHidden();
                 $container.find('span.tag').filter(function () {
                     return $(this).data('tag').toLowerCase() == tag.toLowerCase();
                 }).remove();
