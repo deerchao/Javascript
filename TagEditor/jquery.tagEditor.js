@@ -26,7 +26,6 @@
                         if ($$.val() == '') {
                             if (allTags.length > 0) {
                                 removeTag(allTags[allTags.length - 1]);
-                                updateHidden();
                             }
                         }
                         break;
@@ -162,7 +161,7 @@
                 if (i < 0)
                     return;
                 allTags.splice(i, 1);
-				updateHidden();
+		updateHidden();
                 $container.find('span.tag').filter(function () {
                     return $(this).data('tag').toLowerCase() == tag.toLowerCase();
                 }).remove();
